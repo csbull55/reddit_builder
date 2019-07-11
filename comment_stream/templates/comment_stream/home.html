@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Reddit Comment Streamer</title>
-</head>
-<body>
-test
-</body>
-</html>
+<h1>Reddit Comment Stream</h1>
+
+<form action="{% url 'comments' %}">
+    <textarea cols="40" rows="10" name="fulltext"></textarea>
+    <br />
+    <input type="submit" value="Fetch Comments" />
+</form>
+
+

@@ -20,4 +20,5 @@ import comment_stream.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', comment_stream.views.home, name='home'),
+    path('comments/', comment_stream.views.stream, name='comments'),
 ]
