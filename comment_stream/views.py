@@ -1,6 +1,4 @@
-from django.http import HttpResponse
 from django.shortcuts import render
-from django.http import JsonResponse
 import praw
 
 
@@ -18,10 +16,22 @@ def stream(request):
     # gets subreddit
     sub = request.GET['fulltext']
 
-    comments = []
-    # loads comments from that subreddit
-    for comment in reddit.subreddit(sub).comments(limit=5):
-        comments.append(comment.body)
+    # creates empty dicts
+    comments = {}
+    comments_len = {}
 
-    json_comments = JsonResponse(comments, safe=False)
-    return HttpResponse(json_comments, content_type="application/json")
+    # loads comments from that subreddit
+    for comment in reddit.subreddit(sub).comments():
+        comments[comment.body] = 1
+        comments_len[len(comment.body)] = 1
+
+    # finds average length of comment
+    avg_len = sum(comments_len) / len(comments_len)
+
+    return render(request, 'comment_stream/comments.html', {'subname': sub,
+                                                            'comments': comments,
+                                                            'count': len(comments),
+                                                            'comment_length': round(avg_len, 0),
+                                                            }
+                  )
+

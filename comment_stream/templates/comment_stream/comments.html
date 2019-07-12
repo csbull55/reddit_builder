@@ -1,9 +1,12 @@
 
-<h1> hello </h1>
+<h1>Comments for /r/{{ subname }} </h1>
+<h2>We found {{ count }} comments</h2>
+<h3>Average length of {{ comment_length }} characters</h3>
+<a href="{% url 'home' %}">Return</a>
 
-{% for comment in json_comments %}
-{{ comment }}
-<br />
+<ul>
+    {% for comment in comments %}
 
-{% endfor %}
+    <li>{{ comment }}</li>
 
+    {% endfor %}
