@@ -1,3 +1,3 @@
 # reddit_builder
 
-This will be a simple site where you can input a subreddit, and it will live stream comments will providing various statistics/graphs
+Enter a subreddit and it'll supply basic statistics on 1000 of the most recent comments.
