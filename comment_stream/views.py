@@ -10,7 +10,7 @@ def home(request):
 # this is the comment stream
 def stream(request):
     # creates reddit instance
-    reddit = praw.Reddit('comment_bot',
+    reddit = praw.Reddit('bot1',
                          user_agent='comment_bot_agent')
 
     # gets subreddit
@@ -34,4 +34,3 @@ def stream(request):
                                                             'comment_length': round(avg_len, 0),
                                                             }
                   )
-
