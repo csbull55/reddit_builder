@@ -23,16 +23,18 @@ def stream(request):
 
     # loads comments from that subreddit
     for comment in reddit.subreddit(sub).comments():
-        comments[comment.id] = comment.body
-        # auth[comment.author] = 1
-        # comment_time[comment.created_utc] = 1
+        comments[comment.id] = {
+                                'body': comment.body,
+                                'auth': comment.author,
+                                'comment_time': comment.created_utc
+                                }
 
     # finds average length of comment
     # avg_len = sum(comments_len) / len(comments_len)
 
     return render(request, 'comment_stream/comments.html',
                   {'subname': sub,
-                   'comments': list(comments.values()),
+                   'comments': list(comments),
                    'count': len(comments),
                    # 'comment_length': round(avg_len, 0),
                    # 'user_count': len(auth),
