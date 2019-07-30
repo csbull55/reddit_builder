@@ -19,18 +19,22 @@ def stream(request):
     # creates empty dicts
     comments = {}
     comments_len = {}
+    auth = {}
 
     # loads comments from that subreddit
     for comment in reddit.subreddit(sub).comments():
         comments[comment.body] = 1
         comments_len[len(comment.body)] = 1
+        auth[comment.author] = 1
 
     # finds average length of comment
     avg_len = sum(comments_len) / len(comments_len)
 
-    return render(request, 'comment_stream/comments.html', {'subname': sub,
-                                                            'comments': comments,
-                                                            'count': len(comments),
-                                                            'comment_length': round(avg_len, 0),
-                                                            }
+    return render(request, 'comment_stream/comments.html',
+                  {'subname': sub,
+                   'comments': comments,
+                   'count': len(comments),
+                   'comment_length': round(avg_len, 0),
+                   'user_count': len(auth),
+                   }
                   )
