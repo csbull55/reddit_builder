@@ -9,6 +9,12 @@ def home(request):
 
 # this is the comment stream
 def stream(request):
+    def dict_pull(dict, column):
+        data = []
+        for i in dict:
+            data.append(dict[i][column])
+        return data
+
     # creates reddit instance
     reddit = praw.Reddit('bot1',
                          user_agent='comment_bot_agent')
@@ -34,7 +40,7 @@ def stream(request):
 
     return render(request, 'comment_stream/comments.html',
                   {'subname': sub,
-                   'comments': list(comments),
+                   'comments': dict_pull(comments, 'body'),
                    'count': len(comments),
                    # 'comment_length': round(avg_len, 0),
                    # 'user_count': len(auth),
