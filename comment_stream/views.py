@@ -24,8 +24,6 @@ def stream(request):
 
     # creates empty dicts
     comments = {}
-    # auth = {}
-    # comment_time = {}
 
     # loads comments from that subreddit
     for comment in reddit.subreddit(sub).comments():
@@ -35,6 +33,7 @@ def stream(request):
                                 'comment_time': comment.created_utc
                                 }
 
+    avg_len = sum(len(s) for s in dict_pull(comments, 'body')) / len(comments)
     # finds average length of comment
     # avg_len = sum(comments_len) / len(comments_len)
 
@@ -42,7 +41,7 @@ def stream(request):
                   {'subname': sub,
                    'comments': dict_pull(comments, 'body'),
                    'count': len(comments),
-                   # 'comment_length': round(avg_len, 0),
+                   'comment_length': avg_len,
                    # 'user_count': len(auth),
                    }
                   )
