@@ -33,15 +33,24 @@ def stream(request):
                                 'comment_time': comment.created_utc
                                 }
 
+    # finds average character lentth of a comment
     avg_len = sum(len(s) for s in dict_pull(comments, 'body')) / len(comments)
-    # finds average length of comment
-    # avg_len = sum(comments_len) / len(comments_len)
+
+    # finds num of unique users
+    auth = set(dict_pull(comments, 'auth'))
+
+    # finds date/time range, avg comments/min
+    times = dict_pull(comments, 'comment_time')
+    rng = (max(times) - min(times)) / 60
+    comment_min = float("{0:.2f}".format(len(comments) / rng))
 
     return render(request, 'comment_stream/comments.html',
                   {'subname': sub,
                    'comments': dict_pull(comments, 'body'),
                    'count': len(comments),
                    'comment_length': avg_len,
-                   # 'user_count': len(auth),
+                   'user_count': len(auth),
+                   'cmt_rng': rng,
+                   'comment_min': comment_min,
                    }
                   )

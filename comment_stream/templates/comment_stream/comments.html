@@ -1,13 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reddit builder</title>
+</head>
 
-<h1>Comments for /r/{{ subname }} </h1>
-<h2>We found {{ count }} comments</h2>
-<h3>Average length of {{ comment_length }} characters</h3>
+<body>
+  <h1>Comments for /r/{{ subname }} </h1>
+  <h2>We found {{ count }} comments</h2>
+  <h3>Average comment length: {{ comment_length }} characters</h3>
+  <h3>Unique users: {{ user_count }}</h3>
+  <h3>Comments/min: {{ comment_min }} </h3>
 
-<a href="{% url 'home' %}">Return</a>
+  <a href="{% url 'home' %}">Return</a>
 
-<ul>
+  <ul>
     {% for comment in comments %}
 
     <li>{{ comment }}</li>
 
     {% endfor %}
+
+  </body>
+  </html>
